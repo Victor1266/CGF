@@ -1,0 +1,25 @@
+import os
+import hou
+import getpass
+from os import listdir
+from os.path import isfile, join
+
+user = getpass.getuser()
+JOBpath = os.environ['JOB']
+work_path = JOBpath + '/layout/work/' + user + '/'
+i = 0
+max_mtime = 0
+
+onlyfiles = [f for f in listdir(work_path) if isfile(join(work_path, f))]
+
+for files in onlyfiles:
+        if files[-3:]!='hip':
+            i += 1
+        else:
+            mtime = os.stat(work_path + files).st_mtime
+            if mtime > max_mtime:
+                max_mtime = mtime
+                max_file = files
+
+
+hou.hipFile.load(work_path + max_file)
