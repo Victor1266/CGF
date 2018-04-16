@@ -1,0 +1,2 @@
+# CGF
+Scripts for studio
